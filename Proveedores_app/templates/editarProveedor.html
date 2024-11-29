@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h1>Editar Proveedor</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarProveedor/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="txtid_proveedor" name="txtid_proveedor" class="form-control" value="{{ misproveedores.id_proveedor }}" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" value="{{ misproveedores.nombre }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txttelefono" name="txttelefono" class="form-control" value="{{ misproveedores.telefono }}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtproducto" name="txtproducto" class="form-control" value="{{ misproveedores.producto }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtmetodo_pago" name="txtmetodo_pago" class="form-control" value="{{ misproveedores.metodo_pago }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtlote" name="txtlote" class="form-control" value="{{ misproveedores.lote }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txtid_producto" name="txtid_producto" class="form-control" value="{{ misproveedores.id_producto }}" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-success">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

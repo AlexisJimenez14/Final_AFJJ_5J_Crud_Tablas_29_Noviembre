@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <h1>Registrar Proveedor</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarProveedor/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="txtid_proveedor" name="txtid_proveedor" class="form-control" placeholder="ID de Proveedor" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txttelefono" name="txttelefono" class="form-control" placeholder="Teléfono" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtproducto" name="txtproducto" class="form-control" placeholder="Producto" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtmetodo_pago" name="txtmetodo_pago" class="form-control" placeholder="Método de Pago" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtlote" name="txtlote" class="form-control" placeholder="Lote" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txtid_producto" name="txtid_producto" class="form-control" placeholder="ID de Producto" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <h1>Listado de Proveedores</h1>
+        <img class="rounded mx-auto d-block" src="{% static 'img/proveedor.jpg' %}" alt="alexis" style="width: 200px; height: 200px;" />
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ID Proveedor</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Método de Pago</th>
+                        <th scope="col">Lote</th>
+                        <th scope="col">ID Producto</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in misproveedores %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ m.id_proveedor }}</td>
+                        <td>{{ m.nombre }}</td>
+                        <td>{{ m.telefono }}</td>
+                        <td>{{ m.producto }}</td>
+                        <td>{{ m.metodo_pago }}</td>
+                        <td>{{ m.lote }}</td>
+                        <td>{{ m.id_producto }}</td>
+                        <td><a href="seleccionarProveedor/{{ m.id_proveedor }}" class="btn btn-info">Editar</a></td>
+                        <td><a href="borrarProveedor/{{ m.id_proveedor }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
