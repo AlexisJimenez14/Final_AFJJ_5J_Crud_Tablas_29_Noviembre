@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h1>Editar Promoción</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarPromocion/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="txtid_promocion" name="txtid_promocion" class="form-control" value="{{ mispromociones.id_promocion }}" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="txtdescripcion" name="txtdescripcion" class="form-control" rows="3" required>{{ mispromociones.descripcion }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_inicio" name="txtfecha_inicio" class="form-control" value="{{ fecha_inicio}}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_fin" name="txtfecha_fin" class="form-control" value="{{ fecha_fin }}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" value="{{ mispromociones.nombre }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtproducto_aplicable" name="txtproducto_aplicable" class="form-control" value="{{ mispromociones.producto_aplicable }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtzona_aplicable" name="txtzona_aplicable" class="form-control" value="{{ mispromociones.zona_aplicable }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txtid_producto" name="txtid_producto" class="form-control" value="{{ mispromociones.id_producto }}" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

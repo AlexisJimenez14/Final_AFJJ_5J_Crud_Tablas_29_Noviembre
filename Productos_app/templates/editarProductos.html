@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h1>Editar Producto</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarProducto/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="txtid_producto">ID del Producto</label>
+                        <input 
+                            type="number" 
+                            id="txtid_producto" 
+                            name="txtid_producto" 
+                            class="form-control" 
+                            value="{{ misproductos.id_producto }}" 
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtnombre">Nombre</label>
+                        <input 
+                            type="text" 
+                            id="txtnombre" 
+                            name="txtnombre" 
+                            class="form-control" 
+                            value="{{ misproductos.nombre }}" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtprecio">Precio</label>
+                        <input 
+                            type="number" 
+                            id="txtprecio" 
+                            name="txtprecio" 
+                            class="form-control" 
+                            value="{{ misproductos.precio }}" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtcantidad">Cantidad</label>
+                        <input 
+                            type="number" 
+                            id="txtcantidad" 
+                            name="txtcantidad" 
+                            class="form-control" 
+                            value="{{ misproductos.cantidad }}" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtstock">Stock</label>
+                        <input 
+                            type="number" 
+                            id="txtstock" 
+                            name="txtstock" 
+                            class="form-control" 
+                            value="{{ misproductos.stock }}" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtfecha_produccion">Fecha de Producción</label>
+                        <input 
+                            type="date" 
+                            id="txtfecha_produccion" 
+                            name="txtfecha_produccion" 
+                            class="form-control" 
+                            value="{{ fecha_produccion }}" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtlote">Lote</label>
+                        <input 
+                            type="text" 
+                            id="txtlote" 
+                            name="txtlote" 
+                            class="form-control" 
+                            value="{{ misproductos.lote }}" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtid_proveedor">ID del Proveedor</label>
+                        <input 
+                            type="number" 
+                            id="txtid_proveedor" 
+                            name="txtid_proveedor" 
+                            class="form-control" 
+                            value="{{ misproductos.id_proveedor }}" 
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtid_empleado">ID del Empleado</label>
+                        <input 
+                            type="number" 
+                            id="txtid_empleado" 
+                            name="txtid_empleado" 
+                            class="form-control" 
+                            value="{{ misproductos.id_empleado }}" 
+                            required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('txtfecha_produccion').addEventListener('input', function() {
+        const value = this.value;
+        // Verifica si el valor ingresado sigue el formato de fecha válido (YYYY-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            alert("Por favor, ingrese una fecha en el formato correcto (YYYY-MM-DD) para la fecha de producción.");
+            this.value = ''; // Limpia el campo si el formato es incorrecto
+        }
+    });
+</script>
+{% endblock %}

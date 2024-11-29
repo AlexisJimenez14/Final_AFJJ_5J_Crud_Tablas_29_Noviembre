@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h1>Editar Envío</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarEnvio/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="txtid_envio" name="txtid_envio" class="form-control" value="{{ misenvios.id_envio }}" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txtid_producto" name="txtid_producto" class="form-control" value="{{ misenvios.id_producto }}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtdireccion_envio" name="txtdireccion_envio" class="form-control" value="{{ misenvios.direccion_envio }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtcompania_envio" name="txtcompania_envio" class="form-control" value="{{ misenvios.compania_envio }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_estimada_llegada" name="txtfecha_estimada_llegada" class="form-control" value="{{ fecha_estimada_llegada }}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtestado_envio" name="txtestado_envio" class="form-control" value="{{ misenvios.estado_envio }}" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_salida" name="txtfecha_salida" class="form-control" value="{{ fecha_salida }}" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('txtfecha_estimada_llegada').addEventListener('input', function() {
+        const value = this.value;
+        // Verifica si el valor ingresado sigue el formato de fecha válido (YYYY-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            alert("Por favor, ingrese una fecha en el formato correcto (YYYY-MM-DD) para la fecha estimada de llegada.");
+            this.value = ''; // Limpia el campo si el formato es incorrecto
+        }
+    });
+
+    document.getElementById('txtfecha_salida').addEventListener('input', function() {
+        const value = this.value;
+        // Verifica si el valor ingresado sigue el formato de fecha válido (YYYY-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            alert("Por favor, ingrese una fecha en el formato correcto (YYYY-MM-DD) para la fecha de salida.");
+            this.value = ''; // Limpia el campo si el formato es incorrecto
+        }
+    });
+</script>
+{% endblock %}

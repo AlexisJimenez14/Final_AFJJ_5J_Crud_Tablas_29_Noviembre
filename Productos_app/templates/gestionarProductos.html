@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-4">
+        <h1>Registrar Producto</h1>
+        <form action="/registrarProducto/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="number" id="txtid_producto" name="txtid_producto" class="form-control" placeholder="ID del Producto" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="txtprecio" name="txtprecio" class="form-control" placeholder="Precio" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="txtcantidad" name="txtcantidad" class="form-control" placeholder="Cantidad" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="txtstock" name="txtstock" class="form-control" placeholder="Stock" required>
+            </div>
+            <div class="form-group">
+                <input type="date" id="txtfecha_produccion" name="txtfecha_produccion" class="form-control" placeholder="Fecha de Producción" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="txtlote" name="txtlote" class="form-control" placeholder="Lote" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="txtid_proveedor" name="txtid_proveedor" class="form-control" placeholder="ID del Proveedor" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="txtid_empleado" name="txtid_empleado" class="form-control" placeholder="ID del Empleado" required>
+            </div>
+            <div class="form-group py-2">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-8">
+        <h1>Listado de Productos</h1>
+        <img class="rounded mx-auto d-block" src="{% static 'img/producto.jpg' %}" alt="alexis" style="width: 200px; height: 200px;" />
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ID Producto</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Stock</th>
+                    <th>Fecha Producción</th>
+                    <th>Lote</th>
+                    <th>ID Proveedor</th>
+                    <th>ID Empleado</th>
+                    <th colspan="2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in misproductos %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ p.id_producto }}</td>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.precio }}</td>
+                    <td>{{ p.cantidad }}</td>
+                    <td>{{ p.stock }}</td>
+                    <td>{{ p.fecha_produccion }}</td>
+                    <td>{{ p.lote }}</td>
+                    <td>{{ p.id_proveedor }}</td>
+                    <td>{{ p.id_empleado }}</td>
+                    <td><a href="seleccionarProducto/{{ p.id_producto }}" class="btn btn-info">Editar</a></td>
+                    <td><a href="borrarProducto/{{ p.id_producto }}" class="btn btn-danger">Borrar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    document.getElementById('txtfecha_produccion').addEventListener('input', function() {
+        const value = this.value;
+        // Verifica si el valor ingresado sigue el formato de fecha válido (YYYY-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            alert("Por favor, ingrese una fecha en el formato correcto (YYYY-MM-DD) para la fecha de producción.");
+            this.value = ''; // Limpia el campo si el formato es incorrecto
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <h1>Registrar Promoción</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarPromocion/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="txtid_promocion" name="txtid_promocion" class="form-control" placeholder="ID de Promoción" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="txtdescripcion" name="txtdescripcion" class="form-control" placeholder="Descripción" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_inicio" name="txtfecha_inicio" class="form-control" placeholder="Fecha de Inicio" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_fin" name="txtfecha_fin" class="form-control" placeholder="Fecha de Fin" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtproducto_aplicable" name="txtproducto_aplicable" class="form-control" placeholder="Producto Aplicable" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtzona_aplicable" name="txtzona_aplicable" class="form-control" placeholder="Zona Aplicable" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txtid_producto" name="txtid_producto" class="form-control" placeholder="ID de Producto" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <h1>Listado de Promociones</h1>
+        <img class="rounded mx-auto d-block" src="{% static 'img/promociones.jpg' %}" alt="alexis" style="width: 200px; height: 200px;" />
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ID Promoción</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Fecha de Inicio</th>
+                        <th scope="col">Fecha de Fin</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Producto Aplicable</th>
+                        <th scope="col">Zona Aplicable</th>
+                        <th scope="col">ID Producto</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in mispromociones %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ p.id_promocion }}</td>
+                        <td>{{ p.descripcion }}</td>
+                        <td>{{ p.fecha_inicio }}</td>
+                        <td>{{ p.fecha_fin }}</td>
+                        <td>{{ p.nombre }}</td>
+                        <td>{{ p.producto_aplicable }}</td>
+                        <td>{{ p.zona_aplicable }}</td>
+                        <td>{{ p.id_producto }}</td>
+                        <td><a href="seleccionarPromocion/{{ p.id_promocion }}" class="btn btn-info">Editar</a></td>
+                        <td><a href="borrarPromocion/{{ p.id_promocion }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('txtfecha_inicio').addEventListener('input', function() {
+        const value = this.value;
+        // Verifica si el valor ingresado sigue el formato de fecha válido (YYYY-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            alert("Por favor, ingrese una fecha en el formato correcto (YYYY-MM-DD) para la fecha de inicio.");
+            this.value = ''; // Limpia el campo si el formato es incorrecto
+        }
+    });
+
+    document.getElementById('txtfecha_fin').addEventListener('input', function() {
+        const value = this.value;
+        // Verifica si el valor ingresado sigue el formato de fecha válido (YYYY-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            alert("Por favor, ingrese una fecha en el formato correcto (YYYY-MM-DD) para la fecha de fin.");
+            this.value = ''; // Limpia el campo si el formato es incorrecto
+        }
+    });
+</script>
+{% endblock %}

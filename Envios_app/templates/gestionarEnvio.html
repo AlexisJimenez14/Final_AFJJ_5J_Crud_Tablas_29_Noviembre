@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <h1>Registrar Envío</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarEnvio/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="txtid_envio" name="txtid_envio" class="form-control" placeholder="ID de Envío" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txtid_producto" name="txtid_producto" class="form-control" placeholder="ID de Producto" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtdireccion_envio" name="txtdireccion_envio" class="form-control" placeholder="Dirección de Envío" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtcompania_envio" name="txtcompania_envio" class="form-control" placeholder="Compañía de Envío" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_estimada_llegada" name="txtfecha_estimada_llegada" class="form-control" placeholder="Fecha Estimada de Llegada" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtestado_envio" name="txtestado_envio" class="form-control" placeholder="Estado de Envío" maxLength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_salida" name="txtfecha_salida" class="form-control" placeholder="Fecha de Salida" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <h1>Listado de Envíos</h1>
+        <img class="rounded mx-auto d-block" src="{% static 'img/envio.jpg' %}" alt="alexis" style="width: 200px; height: 200px;" />
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ID Envío</th>
+                        <th scope="col">ID Producto</th>
+                        <th scope="col">Dirección de Envío</th>
+                        <th scope="col">Compañía de Envío</th>
+                        <th scope="col">Fecha Estimada de Llegada</th>
+                        <th scope="col">Estado de Envío</th>
+                        <th scope="col">Fecha de Salida</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in misenvios %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ e.id_envio }}</td>
+                        <td>{{ e.id_producto }}</td>
+                        <td>{{ e.direccion_envio }}</td>
+                        <td>{{ e.compania_envio }}</td>
+                        <td>{{ e.fecha_estimada_llegada }}</td>
+                        <td>{{ e.estado_envio }}</td>
+                        <td>{{ e.fecha_salida }}</td>
+                        <td><a href="seleccionarEnvio/{{ e.id_envio }}" class="btn btn-info">Editar</a></td>
+                        <td><a href="borrarEnvio/{{ e.id_envio }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('txtfecha_estimada_llegada').addEventListener('input', function() {
+        const value = this.value;
+        // Verifica si el valor ingresado sigue el formato de fecha válido (YYYY-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            alert("Por favor, ingrese una fecha en el formato correcto (YYYY-MM-DD) para la fecha estimada de llegada.");
+            this.value = ''; // Limpia el campo si el formato es incorrecto
+        }
+    });
+
+    document.getElementById('txtfecha_salida').addEventListener('input', function() {
+        const value = this.value;
+        // Verifica si el valor ingresado sigue el formato de fecha válido (YYYY-MM-DD)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            alert("Por favor, ingrese una fecha en el formato correcto (YYYY-MM-DD) para la fecha de salida.");
+            this.value = ''; // Limpia el campo si el formato es incorrecto
+        }
+    });
+</script>
+{% endblock %}
